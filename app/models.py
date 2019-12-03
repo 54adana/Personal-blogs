@@ -47,7 +47,7 @@ class Role(db.Model):
 
 
 
-class PitchCategory(db.Model):
+class BlogCategory(db.Model):
 
     __tablename__ = 'categories'
 
@@ -56,51 +56,51 @@ class PitchCategory(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
 
-    # save pitches
+    # save blog
     def save_category(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
     def get_categories(cls):
-        categories = PitchCategory.query.all()
+        categories = BlogCategory.query.all()
         return categories
 
 
-#pitches class
-class Pitch(db.Model):
-    """ List of pitches in each category """
+#blog class
+class Blog(db.Model):
+    """ List of blogs in each category """
 
-    __tablename__ = 'pitches'
+    __tablename__ = 'blogs'
 
     id = db.Column(db.Integer,primary_key = True)
     content = db.Column(db.String)
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    comment = db.relationship("Comments", backref="pitches", lazy = "dynamic")
-    vote = db.relationship("Votes", backref="pitches", lazy = "dynamic")
+    comment = db.relationship("Comments", backref="blog", lazy = "dynamic")
+    vote = db.relationship("Votes", backref="blog", lazy = "dynamic")
 
 
 
-    def save_pitch(self):
-        ''' Save the pitches '''
+    def save_blog(self):
+        ''' Save the blog '''
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def clear_pitches(cls):
-        Pitch.all_pitches.clear()
+    def clear_blog(cls):
+        Blog.all_blog.clear()
 
-    # display pitches
+    # display blog
 
-    def get_pitches(id):
-        pitches = Pitch.query.filter_by(category_id=id).all()
-        return pitches
+    def get_blog(id):
+        blog = Blog.query.filter_by(category_id=id).all()
+        return blog
 
 
 # comments
 class Comments(db.Model):
-    '''User comment model for each pitch '''
+    '''User comment model for each blog '''
 
     __tablename__ = 'comments'
 
@@ -109,12 +109,12 @@ class Comments(db.Model):
     opinion = db.Column(db.String(255))
 #     time_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
 
 
     def save_comment(self):
         '''
-        Save the Comments/comments per pitch
+        Save the Comments/comments per blog
         '''
         db.session.add(self)
         db.session.commit()
@@ -122,7 +122,7 @@ class Comments(db.Model):
     @classmethod
     def get_comments(self, id):
         comment = Comments.query.order_by(
-            Comments.time_posted.desc()).filter_by(pitches_id=id).all()
+            Comments.time_posted.desc()).filter_by(blog_id=id).all()
         return comment
 
 #votes
@@ -133,13 +133,13 @@ class Votes(db.Model):
     id = db.Column(db. Integer, primary_key=True)
     vote = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
 
     def save_vote(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_votes(cls,user_id,pitches_id):
-        votes = Vote.query.filter_by(user_id=user_id, pitches_id=pitches_id).all()
+    def get_votes(cls,user_id,blog_id):
+        votes = Vote.query.filter_by(user_id=user_id, blog_id=blog_id).all()
         return votes
