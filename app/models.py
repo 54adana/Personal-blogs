@@ -78,7 +78,7 @@ class Blog(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     comment = db.relationship("Comments", backref="blog", lazy = "dynamic")
-    vote = db.relationship("Votes", backref="blog", lazy = "dynamic")
+    
 
 
 
@@ -125,21 +125,3 @@ class Comments(db.Model):
             Comments.time_posted.desc()).filter_by(blog_id=id).all()
         return comment
 
-#votes
-class Votes(db.Model):
-    '''class to model votes '''
-    __tablename__='votes'
-
-    id = db.Column(db. Integer, primary_key=True)
-    vote = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
-
-    def save_vote(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_votes(cls,user_id,blog_id):
-        votes = Vote.query.filter_by(user_id=user_id, blog_id=blog_id).all()
-        return votes
