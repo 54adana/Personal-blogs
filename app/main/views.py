@@ -54,3 +54,8 @@ def view():
 def about():
     
     return render_template('about.html')
+
+@main.route('/profile', methods = ['GET','POST'])
+def profile():
+    
+    return render_template('profile.html')

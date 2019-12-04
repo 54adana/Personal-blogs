@@ -1,0 +1,2 @@
+# GETTING THE QUOTES BASE URL
+base_url = app.config["QUOTES_API_BASE_URL"]
