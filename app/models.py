@@ -18,7 +18,7 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    pass_secure = db.Column(db.String(255))
+    password_secure = db.Column(db.String(255))
 
     
     @property
@@ -109,7 +109,7 @@ class Comments(db.Model):
     opinion = db.Column(db.String(255))
 #     time_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
 
 
     def save_comment(self):

@@ -2,8 +2,8 @@ import os
 
 class Config:
     """Main configurations class"""
-
-
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://yvette:yvette@localhost/blog'
+    SECRET_KEY='ac7d66d2'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     #SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
@@ -23,7 +23,7 @@ class Config:
 
 class ProdConfig(Config):
     """Production configuration class that inherits from the main configurations class"""
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://yvette:yvette@localhost/'# os.environ.get("DATABASE_URL")
+    # os.environ.get("DATABASE_URL")
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 
