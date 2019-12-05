@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import main
 from .. import db,photos
+from app.requests import GetQuotes
 from flask_login import login_required,current_user
 from .forms import BlogForm
 
@@ -9,9 +10,10 @@ from .forms import BlogForm
 def index():
     """ View root page function that returns index page """
     
-
+    quotes = GetQuotes()
+    print(quotes)
     title = 'Home- Welcome'
-    return render_template('index.html', title = title)
+    return render_template('index.html', title = title,quotes = quotes)
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
@@ -59,3 +61,4 @@ def about():
 def profile():
     
     return render_template('profile.html')
+

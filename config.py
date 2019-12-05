@@ -17,7 +17,7 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     UPLOADED_PHOTOS_DEST ='app/static/photos'
-    QUOTES_API_BASE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
+    QUOTES_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
 
 
 

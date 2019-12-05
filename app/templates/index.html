@@ -3,7 +3,7 @@
 {{ super() }}
 
 <link rel="stylesheet" href="../static/css/styles.css">
- <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet"> -->
+ <link href="https://fonts.googleapis.com/css?family=Notable&display=swap" rel="stylesheet">
 {% endblock %}
 {% block content %}
 
@@ -15,6 +15,13 @@
   <br>
   <br>
   <br>
+  <div class="card">
+    <div class="card-hoverable">
+        <div class="col-md-4 text-center">
+            <h3>{{quotes.quote}}</h3>
+            <h5>{{quotes.author}}</h5>
+        </div>
+    </div>
   
 </body>
 {% endblock %}

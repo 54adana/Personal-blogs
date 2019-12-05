@@ -1,6 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin,current_user
 from . import login_manager
 
 from . import login_manager
@@ -33,7 +33,7 @@ class User(UserMixin,db.Model):
     def verify_password(self,password):
             return check_password_hash(self.pass_secure,password)
     def __repr__(self):
-        return f'User {self.username}'
+        return f'{self.username}'
 
 
 class Role(db.Model):
@@ -125,3 +125,7 @@ class Comments(db.Model):
             Comments.time_posted.desc()).filter_by(blog_id=id).all()
         return comment
 
+class Quotes:
+    def __init__(self,author,quote):
+        self.author = author
+        self.quote = quote
